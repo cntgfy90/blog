@@ -1,7 +1,10 @@
 import React from 'react';
 import { render } from 'react-dom';
-import App from './App';
 import registerServiceWorker from './registerServiceWorker';
+import AppRouter from './routers/AppRouter';
 
-render(<App />, document.getElementById('root'));
+render(
+  <AppRouter />,
+  document.getElementById('root')
+);
 registerServiceWorker();
