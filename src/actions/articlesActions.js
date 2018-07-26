@@ -25,7 +25,6 @@ export const fetchArticles = (page, page_size) => async (dispatch) => {
     const articles = await butter.post.list({page, page_size});
     dispatch(fetchArticlesSuccess(articles.data.data));
   } catch(err) {
-    console.log(err)
     dispatch(fetchArticlesFailure(err));
   }
 };

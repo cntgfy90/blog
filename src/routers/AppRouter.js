@@ -1,13 +1,14 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import App from '../App';
+
+import HomePage from '../pages/HomePage';
+import LoginPage from '../pages/LoginPage';
 
 const AppRouter = () => (
   <Router>
     <Switch>
-      <Route path="/" component={App} exact={true} />
-      <Route path="/article" component={App} />
-      <Route component={App} />
+      <Route path="/" component={HomePage} exact={true} />
+      <Route path="/login" component={LoginPage} />
     </Switch>
   </Router>
 );
