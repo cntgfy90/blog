@@ -19,12 +19,13 @@ export const fetchArticlesFailure = (err) => ({
   err
 });
 
-export const fetchArticles = () => async (dispatch) => {
+export const fetchArticles = (page, page_size) => async (dispatch) => {
   try {
     dispatch(fetchArticlesRequest());
-    const articles = await butter.post.list({page: 1, page_size: 10});
+    const articles = await butter.post.list({page, page_size});
     dispatch(fetchArticlesSuccess(articles.data.data));
   } catch(err) {
+    console.log(err)
     dispatch(fetchArticlesFailure(err));
   }
 };

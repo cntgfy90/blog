@@ -9,7 +9,7 @@ class ArticlesListContainer extends React.Component {
   }
 
   componentDidMount() {
-    this.props.dispatch(fetchArticles());
+    this.props.dispatch(fetchArticles(1, 10));
   }
 
   render() {
