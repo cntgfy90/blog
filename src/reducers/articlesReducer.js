@@ -22,7 +22,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isFetching: false,
-        disInvalidate: false,
+        didInvalidate: false,
         items: action.items
       };
     case FETCH_ARTICLES_FAILURE:

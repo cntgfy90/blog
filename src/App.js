@@ -2,7 +2,7 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 
 import Header from './components/Header';
-import ArticlesList from './components/ArticlesList';
+import ArticlesListContainer from './components/ArticlesListContainer';
 
 const App = (props) => (
   <Grid container className={'app'} spacing={16}>
@@ -10,7 +10,7 @@ const App = (props) => (
       <Header />
     </Grid>
     <Grid item xs={12}>
-      <ArticlesList />
+      <ArticlesListContainer />
     </Grid>
   </Grid>
 );
