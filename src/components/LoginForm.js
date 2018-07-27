@@ -1,11 +1,13 @@
 import React from 'react';
-
+import Validator from 'validator';
+import InlineError from './InlineError';
 
 class LoginForm extends React.Component {
   constructor(props) {
     super(props);
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
 
     this.state = {
       loading: false,
@@ -26,22 +28,41 @@ class LoginForm extends React.Component {
     }));
   }
 
+  handleSubmit(e) {
+    e.preventDefault();
+    const errors = this.validate(this.state.data);
+    this.setState(() => ({ errors }));
+    if (Object.keys(errors).length === 0) {
+      this.props.submit(this.state.data);
+    }
+  }
+
+  validate(data) {
+    const errors = {};
+    if (!Validator.isEmail(data.email)) errors.email = 'Invalid email';
+    if (!data.password) errors.password = 'Invalid password';
+    return errors;
+  }
+
   render() {
-    const { data } = this.state;
+    const { data, errors } = this.state;
     return (
-      <form>
+      <form onSubmit={this.handleSubmit}>
         <div className={'form-group'}>
           <label htmlFor="email">
           Email
           <input value={data.email} onChange={this.handleChange} name="email" id="email" placeholder="example@gmail.com" type="email" />
+          {errors.email && <InlineError text={errors.email} />}
           </label>
         </div>
         <div className={'form-group'}>
           <label htmlFor="password">
           Password
-          <input value={data.password} onChange={this.handleChange} name="password" id="password" placeholder="123456" type="password" />
+          <input value={data.password} onChange={this.handleChange} name="password" id="password" placeholder="Make it secure" type="password" />
+          {errors.password && <InlineError text={errors.password} />}
           </label>
         </div>
+        <input type="submit" />
       </form>
     );
   }
