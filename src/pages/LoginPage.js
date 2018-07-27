@@ -11,16 +11,25 @@ class LoginPage extends React.Component {
   }
 
   submit(data) {
-    this.props.login(data).then(() => this.props.history.push('/'));
+    this.props.login(data)
+      .then((data) => {
+        !data.err && this.props.history.push('/');
+      });
+
   }
 
   render() {
+    const { user } = this.props;
     return (
       <div>
-        <LoginForm submit={this.submit} />
+        <LoginForm submit={this.submit} user={user.isAuthenticated === false && user} />
       </div>
     );
   }
 }
 
-export default connect(null, { login })(LoginPage);
+const mapStateToProps = (state) => ({
+  user: state.user
+});
+
+export default connect(mapStateToProps, { login })(LoginPage);

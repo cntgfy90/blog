@@ -1,7 +1,8 @@
 import {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
-  LOGIN_FAILURE
+  LOGIN_FAILURE,
+  LOGOUT
 } from './types';
 import api from '../api';
 
@@ -16,13 +17,22 @@ export const loginFailure = (err) => ({
   type: LOGIN_FAILURE,
   err
 });
+export const logoutSuccess = () => ({
+  type: LOGOUT
+});
 
 export const login = (credentials) => async (dispatch) => {
- try {
-   dispatch(loginRequest);
-   const user = await api.user.login(credentials);
-   dispatch(loginSuccess(user));
- } catch(err) {
-   dispatch(loginFailure(err));
- }
+  try {
+    dispatch(loginRequest());
+    const user = await api.user.login(credentials);
+    localStorage.setItem('blogJWT', user.token);
+    return dispatch(loginSuccess(user));
+  } catch(err) {
+    return dispatch(loginFailure(err.response));
+  }
+};
+
+export const logout = () => (dispatch) => {
+  localStorage.removeItem('blogJWT');
+  dispatch(logoutSuccess());
 };

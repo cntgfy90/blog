@@ -1,52 +1,24 @@
 import React from 'react';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import { Card, Icon, Image } from 'semantic-ui-react'
 
 class Article extends React.Component {
   render() {
     return (
       <Card>
-        <CardHeader
-          avatar={
-          <Avatar aria-label="Recipe">
-          R
-          </Avatar>
-          }
-          action={
-          <IconButton>
-          <MoreVertIcon />
-          </IconButton>
-          }
-          title="Shrimp and Chorizo Paella"
-          subheader="September 14, 2016"
-        />
-        <CardMedia
-          image="/static/images/cards/paella.jpg"
-          title="Contemplative Reptile"
-        />
-        <CardContent>
-          <Typography component="p">
-            This impressive paella is a perfect party dish and a fun meal to cook together with
-            your guests. Add 1 cup of frozen peas along with the mussels, if you like.
-          </Typography>
-        </CardContent>
-        <CardActions disableActionSpacing>
-          <IconButton aria-label="Add to favorites">
-            <FavoriteIcon />
-          </IconButton>
-          <IconButton aria-label="Share">
-            <ShareIcon />
-          </IconButton>
-        </CardActions>
+        <Image src='/images/avatar/large/matthew.png' />
+        <Card.Content>
+          <Card.Header>Matthew</Card.Header>
+          <Card.Meta>
+            <span className='date'>Joined in 2015</span>
+          </Card.Meta>
+          <Card.Description>Matthew is a musician living in Nashville.</Card.Description>
+        </Card.Content>
+        <Card.Content extra>
+          <a>
+            <Icon name='user' />
+            22 Friends
+          </a>
+        </Card.Content>
       </Card>
     );
   }
