@@ -13,7 +13,7 @@ class LoginPage extends React.Component {
   submit(data) {
     this.props.login(data)
       .then((data) => {
-        !data.err && this.props.history.push('/');
+        !data.err && this.props.history.push('/dashboard');
       });
 
   }

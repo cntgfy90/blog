@@ -1,14 +1,19 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
+import GuestRoute from '../components/routes/GuestRoute';
+import UserRoute from '../components/routes/UserRoute';
+
 import HomePage from '../pages/HomePage';
 import LoginPage from '../pages/LoginPage';
+import DashboardPage from '../pages/DashboardPage';
 
-const AppRouter = () => (
+const AppRouter = ({ location }) => (
   <Router>
     <Switch>
-      <Route path="/" component={HomePage} exact={true} />
-      <Route path="/login" component={LoginPage} />
+      <Route location={location} path="/" component={HomePage} exact={true} />
+      <GuestRoute location={location} path="/login" component={LoginPage} />
+      <UserRoute location={location} path="/dashboard" component={DashboardPage} />
     </Switch>
   </Router>
 );
