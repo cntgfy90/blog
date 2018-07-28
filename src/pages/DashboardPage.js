@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import ConfirmEmailMessage from '../components/ConfirmEmailMessage';
+import ConfirmEmailMessage from '../components/messages/ConfirmEmailMessage';
 
 const DashboardPage = ({ isConfirmed }) => (
   <div>

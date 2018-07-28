@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { login } from '../actions/authActions';
-import LoginForm from '../components/LoginForm';
+import LoginForm from '../components/forms/LoginForm';
 
 class LoginPage extends React.Component {
   constructor(props) {
@@ -11,11 +11,11 @@ class LoginPage extends React.Component {
   }
 
   submit(data) {
-    this.props.login(data)
+    return this.props.login(data)
       .then((data) => {
-        !data.err && this.props.history.push('/dashboard');
+        if (data.err) return Promise.reject(data.err);
+        else this.props.history.push('/dashboard');
       });
-
   }
 
   render() {
