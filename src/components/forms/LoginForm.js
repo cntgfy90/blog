@@ -1,6 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import isEmail from 'validator/lib/isEmail';
-import { Button, Form, Message } from 'semantic-ui-react';
+import { Button, Form, Message, Container, Divider } from 'semantic-ui-react';
 import InlineError from '../messages/InlineError';
 import '../../styles/components/forms/LoginForm.css';
 
@@ -10,6 +11,7 @@ class LoginForm extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.validate = this.validate.bind(this);
 
     this.state = {
       loading: false,
@@ -57,38 +59,43 @@ class LoginForm extends React.Component {
     const { user } = this.props;
 
     return (
-      <Form onSubmit={this.handleSubmit} className="login-form" loading={loading}>
-        {user.didInvalidate && <InlineError text={'Something wrong with credentials'} error={user.info.data.errors.globals} />}
-        <Form.Field error={!!errors.email}>
-          <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            placeholder="example@gmail.com"
-            value={data.email}
-            type="email"
-            onChange={this.handleChange}
-            name="email"
-            />
-          {errors.email && (
-            <InlineError text={'Invalid email'} />
-          )}
-        </Form.Field>
-        <Form.Field error={!!errors.password}>
-          <label>Password</label>
-          <input
-            id="password"
-            placeholder="Make it secure"
-            value={data.password}
-            type="password"
-            onChange={this.handleChange}
-            name="password"
-            />
-            {errors.password && (
-              <InlineError text={'Invalid password'} />
+      <Container fluid className="login__form-wrapper">
+        <Form onSubmit={this.handleSubmit} className="login__form" loading={loading}>
+          {user.didInvalidate && <InlineError text={'Something wrong with credentials'} error={user.info.data.errors.globals} />}
+          <Form.Field error={!!errors.email}>
+            <label htmlFor="email">Email</label>
+            <input
+              id="email"
+              placeholder="example@gmail.com"
+              value={data.email}
+              type="email"
+              onChange={this.handleChange}
+              name="email"
+              />
+            {errors.email && (
+              <InlineError text={'Invalid email'} />
             )}
-        </Form.Field>
-        <Button type="submit">Submit</Button>
-      </Form>
+          </Form.Field>
+          <Form.Field error={!!errors.password}>
+            <label>Password</label>
+            <input
+              id="password"
+              placeholder="Make it secure"
+              value={data.password}
+              type="password"
+              onChange={this.handleChange}
+              name="password"
+              />
+              {errors.password && (
+                <InlineError text={'Invalid password'} />
+              )}
+          </Form.Field>
+          <Button type="submit" className="login__btn">Login</Button>
+        </Form>
+        <Divider horizontal>Have no account yet?</Divider>
+        <Link to="/signup"><Button secondary>Sign up</Button></Link>
+        <Link to="/forgot_password"><Button>Forgot password?</Button></Link>
+      </Container>
     );
   }
 }

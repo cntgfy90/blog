@@ -11,11 +11,10 @@ class LoginPage extends React.Component {
   }
 
   submit(data) {
-    return this.props.login(data)
-      .then((data) => {
-        if (data.err) return Promise.reject(data.err);
-        else this.props.history.push('/dashboard');
-      });
+    return this.props.login(data).then((data) => {
+      if (data.err) return Promise.reject(data.err);
+      else this.props.history.push('/dashboard');
+    });
   }
 
   render() {

@@ -1,6 +1,6 @@
 import React from 'react';
 import isEmail from 'validator/lib/isEmail';
-import { Form, Button } from 'semantic-ui-react';
+import { Form, Button, Container } from 'semantic-ui-react';
 import InlineError from '../messages/InlineError';
 import '../../styles/components/forms/SignupForm.css';
 
@@ -10,6 +10,7 @@ class SignupForm extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.validate = this.validate.bind(this);
 
     this.state = {
         data: {
@@ -36,11 +37,13 @@ class SignupForm extends React.Component {
     this.setState(() => ({ errors }));
     if (Object.keys(errors).length === 0) {
       this.setState(() => ({ loading: true }));
-      this.props.submit(this.state.data)
-        .catch((err) => this.setState(() => ({
-          errors: err.response.data.errors,
+      this.props.submit(this.state.data).catch(({data}) => {
+        console.log(data);
+        this.setState(() => ({
+          errors: data.errors.globals,
           loading: false
-        })));
+        }));
+      });
     }
   }
 
@@ -57,31 +60,33 @@ class SignupForm extends React.Component {
   render() {
     const { data, errors, loading } = this.state;
     return (
-      <Form className="signup-form" onSubmit={this.handleSubmit} loading={loading}>
-        <Form.Field error={!!errors.email}>
-          <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            name="email"
-            value={data.email}
-            placeholder="example@gmail.com"
-            onChange={this.handleChange}
-          />
-          {errors.email && <InlineError text={errors.email} />}
-        </Form.Field>
-        <Form.Field error={!!errors.password}>
-          <label htmlFor="password">Password</label>
-          <input
-            id="password"
-            name="password"
-            value={data.password}
-            placeholder="Make it secure"
-            onChange={this.handleChange}
-          />
-          {errors.password && <InlineError text={errors.password} />}
-        </Form.Field>
-        <Button primary>Sign up</Button>
-      </Form>
+      <Container fluid className="signup__form-wrapper">
+        <Form className="signup-form" onSubmit={this.handleSubmit} loading={loading}>
+          <Form.Field error={!!errors.email}>
+            <label htmlFor="email">Email</label>
+            <input
+              id="email"
+              name="email"
+              value={data.email}
+              placeholder="example@gmail.com"
+              onChange={this.handleChange}
+            />
+            {errors.email && <InlineError text={errors.email} />}
+          </Form.Field>
+          <Form.Field error={!!errors.password}>
+            <label htmlFor="password">Password</label>
+            <input
+              id="password"
+              name="password"
+              value={data.password}
+              placeholder="Make it secure"
+              onChange={this.handleChange}
+            />
+            {errors.password && <InlineError text={errors.password} />}
+          </Form.Field>
+          <Button primary>Sign up</Button>
+        </Form>
+      </Container>
     );
   }
 }

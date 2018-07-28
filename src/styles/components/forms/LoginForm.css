@@ -1,7 +1,16 @@
-.login-form.login-form {
-  position: absolute;
+.login__form-wrapper.login__form-wrapper.login__form-wrapper {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  max-width: 660px !important;
   min-width: 50%;
-  max-width: 600px;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
+  height: 100vh;
+}
+.login__form.login__form {
+  text-align: left;
+}
+
+.login__btn.login__btn {
+  display: block;
+  margin: 0 auto;
 }

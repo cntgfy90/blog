@@ -17,7 +17,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isLoading: true
-      }
+      };
     case LOGIN_SUCCESS:
       return {
         ...state,

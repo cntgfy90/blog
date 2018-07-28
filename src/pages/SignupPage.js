@@ -11,7 +11,10 @@ class SignupPage extends React.Component {
   }
 
   submit(data) {
-    this.props.signup(data).then(() => this.props.history('/dashboard'));
+    return this.props.signup(data).then((data) => {
+      if (data.err) return Promise.reject(data.err);
+      else this.props.history.push('/dashboard');
+    });
   }
 
   render() {

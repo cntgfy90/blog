@@ -1,6 +1,4 @@
 import {
-  SIGNUP_REQUEST,
-  SIGNUP_FAILURE,
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
@@ -8,14 +6,6 @@ import {
 } from './types';
 import api from '../api';
 
-// Action generators for async signup
-export const signupRequest = () => ({
-  type: SIGNUP_REQUEST
-});
-export const signupFailure = (err) => ({
-  type: SIGNUP_FAILURE,
-  err
-});
 // Action generators for async login
 export const loginRequest = () => ({
   type: LOGIN_REQUEST
@@ -46,15 +36,31 @@ export const login = (credentials) => async (dispatch) => {
 };
 
 // Async generator for signup
-export const signup = (credentials) => async (dispatch) => {
-  try {
-    dispatch(signupRequest());
-    const user = await api.user.signup(credentials);
+export const signup = (credentials) => (dispatch) => {
+  return api.user.signup(credentials).then((user) => {
     localStorage.setItem('blogJWT', user.token);
-    return dispatch(loginSuccess(user)); // dispatch user logged in
-  } catch(err) {
-    return dispatch(signupFailure(err.response));
-  }
+    return dispatch(loginSuccess(user));
+  });
+};
+
+// Async generator for confirmation
+export const confirm = (token) => (dispatch) => {
+  return api.user.confirm(token).then((user) => {
+    localStorage.setItem('blogJWT', user.token);
+    return dispatch(loginSuccess(user))
+  });
+};
+
+export const resetPasswordRequest = ({ email }) => () => {
+  return api.user.resetPasswordRequest(email);
+};
+
+export const validateToken = (token) => () => {
+  return api.user.validateToken(token);
+};
+
+export const resetPassword = (data) => () => {
+  return api.user.resetPassword(data);
 };
 
 export const logout = () => (dispatch) => {

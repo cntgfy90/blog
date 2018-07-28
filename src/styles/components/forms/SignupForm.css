@@ -1,7 +1,11 @@
-.signup-form.signup-form {
-  position: absolute;
+.signup__form-wrapper.signup__form-wrapper.signup__form-wrapper {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  max-width: 660px !important;
   min-width: 50%;
-  max-width: 600px;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
+  height: 100vh;
+}
+.signup__form.signup__form {
+  text-align: left;
 }
